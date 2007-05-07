@@ -1,0 +1,8 @@
+#functions
+export(llla, RaschPLE, simRasch)
+
+#S3 methods
+S3method(print, llla)
+S3method(summary, llla)
+S3method(vcov, llla)
+
