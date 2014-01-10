@@ -112,7 +112,7 @@ countData <- function(data, ncat=length(unique(as.matrix(data[!is.na(data)]))), 
   nexaminee <- nrow(data);
   for(i in 1:nexaminee){
     ## the function dec.base.b changes a vector of base b representation of a integer into its decimal integer form.
-    pattern.idx <- dec.base.b(data[i,], b=ncat) + 1;
+    pattern.idx <- dec.base.b(data[i,], base=ncat) + 1;
     count[pattern.idx] <- count[pattern.idx] + 1;
   }
   

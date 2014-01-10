@@ -1,9 +1,9 @@
 \name{simRasch}
 \alias{simRasch}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Simulate the data matrix from a Rasch Model}
+\title{ Simulate a data matrix from the Rasch Model}
 \description{
-  Simulate the data matrix from a Rasch Model
+  Simulate a data matrix from the Rasch Model
 }
 \usage{
 simRasch(ncat, nitem, nexaminee, beta = NULL)

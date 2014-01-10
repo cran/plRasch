@@ -1,12 +1,12 @@
 \name{llla}
 \alias{llla}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Fitting Log Linear by Linear Association models }
+\title{ Fit Log Linear by Linear Association Models }
 \description{
   This function fits log linear by linear association models using pseudolikelihood method.
 }
 \usage{
-llla(data, item.mtx = rep(1, ncol(data)), trait.mtx = 1, useMLE = FALSE, uncorrected = FALSE)
+llla(data, item.mtx=rep(1, ncol(data)), trait.mtx=1, useMLE=FALSE, uncorrected=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -31,7 +31,7 @@ llla(data, item.mtx = rep(1, ncol(data)), trait.mtx = 1, useMLE = FALSE, uncorre
   \item{nitem }{number of items}
 }
 
-\references{ Anderson, C.J., Li, Z., & Vermunt, J.K. (2007). 
+\references{ Anderson, C.J., Li, Z., & Vermunt, J.K. (2007).
 Estimation of models in the Rasch family for polytomous items and multiple latent variables.
  Journal of Statistical Software, 20. }
 \author{ Zhushan "Mandy" Li & Feng Hong }

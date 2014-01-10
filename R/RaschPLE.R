@@ -11,9 +11,9 @@
 ###   trait.mtx:
 ###
 ### Value:
-###   
-###   
-###   
+###
+###
+###
 ###
 ### Details:
 ###   The model is
@@ -31,7 +31,7 @@
 ###   The function  only returns the item parameter beta.
 ###
 ###   Essentially, it is a wrapper function: the equvialent llla model
-### are fitted. 
+### are fitted.
 ###
 ### Reference:
 ###   Carolyn Anderson, Zhushan Li, and Jeroen Vermunt, 2006,
@@ -57,32 +57,32 @@ RaschPLE <- function(data, item.mtx, trait.mtx){
 ### consistent with the Rasch model
 llla2Rasch <- function(lllafit, data){
   stopifnot(inherits(lllafit, "llla"))
-  
+
   ncat <- lllafit$ncat
   nitem <- lllafit$nitem
   nexaminee <- lllafit$nexaminee
 
   item.mtx <- lllafit$item.mtx
   trait.mtx <- lllafit$trait.mtx
-  
-  ## 
+
+  ##
   coef.estimates <-lllafit$coefficients;
 
   phi.names <- names(coef.estimates)[grep("phi", names(coef.estimates))]
-  
+
   phi.coef.idx <- match(phi.names, names(lllafit$coefficients))
   phi.estimates <- coef.estimates[phi.coef.idx]
   nphi <- length(phi.estimates)
-  
+
   item.coef.idx <- (1:length(coef.estimates))[-phi.coef.idx]
   item.estimates <- coef.estimates[item.coef.idx]
-  
+
   ## The item parameter estimates given by llla need to be
   ## subtracted by a certain number to get the estimates
   ## of beta in Rasch Model
 
   pldata <- plStackData(data, item.mtx, trait.mtx)
-    
+
   trait.low <- trait.mtx & lower.tri(trait.mtx,diag=TRUE)
   which.low <- which(trait.low, arr.ind=TRUE)
 
@@ -90,7 +90,7 @@ llla2Rasch <- function(lllafit, data){
   trait.num <- matrix(0, nrow=NROW(trait.mtx), ncol=NCOL(trait.mtx))
   for(i in 1:nphi){
     trait.num[which.low[i,1], which.low[i,2]] <- i
-    trait.num[which.low[i,2], which.low[i,1]] <- i    
+    trait.num[which.low[i,2], which.low[i,1]] <- i
   }
 
   ##
@@ -100,7 +100,7 @@ llla2Rasch <- function(lllafit, data){
   }
   rownames(phi2trait.mtx) <- phi.names
   colnames(phi2trait.mtx) <- colnames(trait.mtx)
-    
+
   ##
   plphi <- pldata[,phi.names]
   plskills <- plphi %*% phi2trait.mtx
@@ -115,41 +115,41 @@ llla2Rasch <- function(lllafit, data){
   ##
   return(list(coefficients=beta, se=beta.se, covb=beta.covb))
 }
-  
 
-llla2Rasch.2 <- function(lllafit){
-  stopifnot(inherits(lllafit, "llla"))
-  
-  ncat <- lllafit$ncat
-  nitem <- lllafit$nitem
-  nexaminee <- lllafit$nexaminee
-  
-  ## 
-  coef.estimates <-lllafit$coefficients;
 
-  phi.names <- names(coef.estimates)[grep("phi", names(coef.estimates))]
-  
-  phi.coef.idx <- match(phi.names, names(lllafit$coefficients))
-  phi.estimates <- coef.estimates[phi.coef.idx]
+## llla2Rasch.2 <- function(lllafit){
+##   stopifnot(inherits(lllafit, "llla"))
 
-  item.coef.idx <- (1:length(coef.estimates))[-phi.coef.idx]
-  item.estimates <- coef.estimates[item.coef.idx]
-  
-  ## The item parameter estimates given by llla need to be
-  ## subtracted by a certain number to get the estimates
-  ## of beta in Rasch Model
+##   ncat <- lllafit$ncat
+##   nitem <- lllafit$nitem
+##   nexaminee <- lllafit$nexaminee
 
-  ## Construct the offset values
-  pl.offset <- plStackData(matrix((ncat-1)/2, nrow=1, ncol=nitem), item.mtx, trait.mtx)
-  pl.offset.phi <- as.matrix(pl.offset[, phi.names])
-  offset <- pl.offset.phi %*% phi.estimates
+##   ##
+##   coef.estimates <-lllafit$coefficients;
 
-  ## return the estimates of beta
-  beta <- item.estimates + rep(offset,ncat-1)*rep(1:(ncat-1), each=nitem)
-  beta.se <- lllafit$se[item.coef.idx]
-  beta.covb <- lllafit$covb[item.coef.idx, item.coef.idx]
-  ##
-  return(list(coefficients=beta, se=beta.se, covb=beta.covb))
-}
+##   phi.names <- names(coef.estimates)[grep("phi", names(coef.estimates))]
 
-  
+##   phi.coef.idx <- match(phi.names, names(lllafit$coefficients))
+##   phi.estimates <- coef.estimates[phi.coef.idx]
+
+##   item.coef.idx <- (1:length(coef.estimates))[-phi.coef.idx]
+##   item.estimates <- coef.estimates[item.coef.idx]
+
+##   ## The item parameter estimates given by llla need to be
+##   ## subtracted by a certain number to get the estimates
+##   ## of beta in Rasch Model
+
+##   ## Construct the offset values
+##   pl.offset <- plStackData(matrix((ncat-1)/2, nrow=1, ncol=nitem), item.mtx, trait.mtx)
+##   pl.offset.phi <- as.matrix(pl.offset[, phi.names])
+##   offset <- pl.offset.phi %*% phi.estimates
+
+##   ## return the estimates of beta
+##   beta <- item.estimates + rep(offset,ncat-1)*rep(1:(ncat-1), each=nitem)
+##   beta.se <- lllafit$se[item.coef.idx]
+##   beta.covb <- lllafit$covb[item.coef.idx, item.coef.idx]
+##   ##
+##   return(list(coefficients=beta, se=beta.se, covb=beta.covb))
+## }
+
+

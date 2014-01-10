@@ -1,7 +1,7 @@
 \name{RaschPLE}
 \alias{RaschPLE}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Fit Rasch Family Models using Pseudolikelihood Esitmation }
+\title{ Fit Rasch Family Models Using Pseudolikelihood Esitmation }
 \description{
   This function fits Rasch family models using pseudolikelihood esitmation.
 It is capable of dealing with polytomous items, and 
